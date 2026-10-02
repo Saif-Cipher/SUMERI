@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #0b0b14;
+  --color-carbon: #14141d;
+  --color-warm-white: #f5f5fd;
+  --color-stone: #8a8d9e;
+  --color-soft-metal: #b0b4c8;
+  --color-accent-blue: #2a4bd7;
+  --color-accent-purple: #7b3fd9;
+  --color-accent-pink: #f02be0;
+
+  --color-ink: #0b0b14;
+  --color-ink-muted: rgba(11, 11, 20, 0.62);
+  --color-hair: rgba(11, 11, 20, 0.14);
+
+  --font-display: var(--font-barlow-condensed), "Oswald", "Arial Narrow", sans-serif;
+  --font-condensed: var(--font-barlow-condensed), "Oswald", "Arial Narrow", sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "Space Grotesk", monospace;
+  --font-serif: var(--font-bodoni-moda), Georgia, serif;
+}
+
+@layer base {
+  :root {
+    --bg: #c8cff0;
+    --bg-soft: #f5f5fd;
+    --ink: #0b0b14;
+    --ink-muted: rgba(11, 11, 20, 0.62);
+    --hair: rgba(11, 11, 20, 0.14);
+
+    --accent-1: #2a4bd7;
+    --accent-2: #7b3fd9;
+    --accent-3: #f02be0;
+    --accent-grad: linear-gradient(90deg, #2a4bd7, #7b3fd9 55%, #f02be0);
+
+    --glass-bg: rgba(255, 255, 255, 0.35);
+    --glass-border: rgba(255, 255, 255, 0.55);
+    --glass-blur: 20px;
+
+    --btn-bg: #0b0b14;
+    --btn-fg: #ffffff;
+    --btn-chip: #ffffff;
+
+    --radius-card: 26px;
+    --radius-pill: 999px;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+/* Gradient emphasis typography */
+.accent-gradient-text {
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Luxury Glass Navigation & Panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 10px 30px -10px rgba(11, 11, 20, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.glass-pill-nav {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px 0 rgba(11, 11, 20, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* 3D Stage Hardware Acceleration */
+.preserve-3d {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(11, 11, 20, 0.18);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(11, 11, 20, 0.35);
+}

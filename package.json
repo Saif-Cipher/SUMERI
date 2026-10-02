@@ -1,0 +1,38 @@
+{
+  "name": "sumeri",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "remotion:render": "remotion render remotion/index.ts HeroWatch public/video/hero-watch-cinematic.mp4",
+    "remotion:render-web": "remotion render remotion/index.ts HeroWatch public/video/hero-watch-cinematic.webm --codec=vp8",
+    "remotion:poster": "remotion still remotion/index.ts HeroWatch public/video/hero-watch-poster.jpg --frame=45"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.4.7",
+    "gsap": "^3.15.0",
+    "lenis": "^1.1.20",
+    "lucide-react": "^1.48.0",
+    "next": "16.3.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "remotion": "4.0.532",
+    "tailwind-merge": "^3.7.0",
+    "three": "^0.174.0"
+  },
+  "devDependencies": {
+    "@remotion/cli": "4.0.532",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.174.0",
+    "postcss": "^8",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

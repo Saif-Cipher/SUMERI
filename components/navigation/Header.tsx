@@ -2,13 +2,36 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import { Compass, Menu, X, ArrowUpRight } from "lucide-react";
 import { ScrambleText } from "@/components/ui/scramble-text";
+
+const NAV_ITEMS = [
+  { name: "HOME", href: "/" },
+  { name: "COLLECTION", href: "/collection" },
+  { name: "CRAFT", href: "/craft" },
+  { name: "STORY", href: "/story" },
+  { name: "JOURNAL", href: "/journal" },
+];
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const contactBtnRef = useRef<HTMLAnchorElement>(null);
+  const pathname = usePathname();
+
+  // Determine which nav item is active based on current path
+  const getActiveItem = () => {
+    if (!pathname || pathname === "/") return "HOME";
+    if (pathname.startsWith("/collection") || pathname.startsWith("/watch")) return "COLLECTION";
+    if (pathname.startsWith("/craft")) return "CRAFT";
+    if (pathname.startsWith("/story")) return "STORY";
+    if (pathname.startsWith("/journal")) return "JOURNAL";
+    return "HOME";
+  };
+
+  const activeItem = getActiveItem();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,14 +90,14 @@ export function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "py-3 bg-white/40 backdrop-blur-xl border-b border-white/60 shadow-sm"
+            ? "py-3 bg-white/45 backdrop-blur-xl border-b border-white/60 shadow-sm"
             : "py-5 sm:py-6 bg-transparent"
         }`}
       >
         <div className="max-w-[1560px] mx-auto px-6 sm:px-10 lg:px-14 flex items-center justify-between">
           {/* SUMERI Wordmark with Scramble Text on Hover */}
           <Link href="/" className="flex items-center gap-2.5 group" data-cursor="link">
-            <span className="flex items-center justify-center h-7 w-7 rounded-full bg-[#0b0b14] text-white">
+            <span className="flex items-center justify-center h-7 w-7 rounded-full bg-[#0b0b14] text-white shadow-sm">
               <Compass className="w-3.5 h-3.5 transition-transform duration-500 group-hover:rotate-45" />
             </span>
             <ScrambleText
@@ -87,43 +110,43 @@ export function Header() {
             </ScrambleText>
           </Link>
 
-          {/* Center Glass Pill Navigation */}
-          <nav className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-pill-nav">
-            <Link
-              href="/"
-              data-cursor="link"
-              className="px-4 py-1.5 rounded-full bg-[#0b0b14] text-white font-mono text-xs font-medium tracking-wider uppercase transition-colors"
-            >
-              HOME
-            </Link>
-            <Link
-              href="/collection"
-              data-cursor="link"
-              className="px-4 py-1.5 rounded-full text-[#0b0b14]/75 hover:text-[#0b0b14] hover:bg-black/5 font-mono text-xs tracking-wider uppercase transition-colors"
-            >
-              COLLECTION
-            </Link>
-            <Link
-              href="/craft"
-              data-cursor="link"
-              className="px-4 py-1.5 rounded-full text-[#0b0b14]/75 hover:text-[#0b0b14] hover:bg-black/5 font-mono text-xs tracking-wider uppercase transition-colors"
-            >
-              CRAFT
-            </Link>
-            <Link
-              href="/story"
-              data-cursor="link"
-              className="px-4 py-1.5 rounded-full text-[#0b0b14]/75 hover:text-[#0b0b14] hover:bg-black/5 font-mono text-xs tracking-wider uppercase transition-colors"
-            >
-              STORY
-            </Link>
-            <Link
-              href="/journal"
-              data-cursor="link"
-              className="px-4 py-1.5 rounded-full text-[#0b0b14]/75 hover:text-[#0b0b14] hover:bg-black/5 font-mono text-xs tracking-wider uppercase transition-colors"
-            >
-              JOURNAL
-            </Link>
+          {/* Center Liquid Glass Pill Navigation with Shared Sliding Active Indicator */}
+          <nav className="hidden md:flex items-center gap-1 p-1.5 rounded-full glass-pill-nav relative">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeItem === item.name;
+
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  data-cursor="link"
+                  className={`relative px-4 py-1.5 rounded-full font-mono text-xs tracking-wider uppercase transition-colors z-10 ${
+                    isActive
+                      ? "text-white font-medium"
+                      : "text-[#0b0b14]/70 hover:text-[#0b0b14]"
+                  }`}
+                >
+                  {/* Shared Liquid Glass Sliding Active Capsule */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeLiquidPill"
+                      className="absolute inset-0 rounded-full bg-[#0b0b14] shadow-[0_4px_16px_rgba(11,11,20,0.22)] -z-10"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                        mass: 0.75,
+                      }}
+                    >
+                      {/* Subtle Inner Highlight for Liquid Glass Feel */}
+                      <div className="absolute inset-0 rounded-full border border-white/20 pointer-events-none" />
+                      <div className="absolute top-0 left-2 right-2 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+                    </motion.div>
+                  )}
+                  <span>{item.name}</span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right Magnetic Contact Pill */}
@@ -169,21 +192,18 @@ export function Header() {
           </div>
 
           <nav className="flex flex-col gap-6 font-display text-3xl tracking-tight">
-            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2a4bd7] transition-colors">
-              Home
-            </Link>
-            <Link href="/collection" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2a4bd7] transition-colors">
-              Collection
-            </Link>
-            <Link href="/craft" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2a4bd7] transition-colors">
-              Craft & Precision
-            </Link>
-            <Link href="/story" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2a4bd7] transition-colors">
-              Brand Story
-            </Link>
-            <Link href="/journal" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2a4bd7] transition-colors">
-              Journal
-            </Link>
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`transition-colors ${
+                  activeItem === item.name ? "text-[#2a4bd7]" : "hover:text-[#2a4bd7]"
+                }`}
+              >
+                {item.name.charAt(0) + item.name.slice(1).toLowerCase()}
+              </Link>
+            ))}
           </nav>
 
           <div className="pt-6 border-t border-white/20">

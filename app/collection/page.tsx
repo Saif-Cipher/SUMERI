@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { WATCH_CATALOG } from "@/data/watch-data";
-import { ArrowRight, Filter } from "lucide-react";
+import { WATCH_CATALOG, WatchRecord } from "@/data/watch-data";
+import { Filter, Eye, ArrowUpRight } from "lucide-react";
+import { ProductDetailOverlay } from "@/components/collection/ProductDetailOverlay";
+import { ScrambleText } from "@/components/ui/scramble-text";
 
 const CATEGORIES = ["ALL", "DIVER", "AUTOMATIC", "TITANIUM", "HERITAGE", "CHRONO", "CERAMIC"];
 
 export default function CollectionPage() {
   const [selectedCat, setSelectedCat] = useState("ALL");
+  const [selectedWatch, setSelectedWatch] = useState<WatchRecord | null>(null);
 
   const filteredWatches =
     selectedCat === "ALL"
@@ -24,9 +26,14 @@ export default function CollectionPage() {
           <div>
             <div className="flex items-center gap-3 mb-3">
               <span className="h-px w-8 bg-[#0b0b14]/30" />
-              <span className="font-mono text-xs font-semibold tracking-[0.25em] text-[#0b0b14]/70 uppercase">
-                COLLECTION · VOL. 01
-              </span>
+              <ScrambleText
+                duration={0.8}
+                speed={0.03}
+                scrambleOnHover={true}
+                className="font-mono text-xs font-semibold tracking-[0.25em] text-[#0b0b14]/70 uppercase cursor-default"
+              >
+                COLLECTION · VOL. 01 · 15 REFERENCES
+              </ScrambleText>
             </div>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-[#0b0b14] leading-[0.92]">
               The Complete{" "}
@@ -67,22 +74,29 @@ export default function CollectionPage() {
           ))}
         </div>
 
-        {/* 3-Column Watch Grid */}
+        {/* 3-Column Watch Grid — Interactive Cards that trigger Product Detail Overlay */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredWatches.map((watch) => (
-            <Link
+            <button
               key={watch.id}
-              href={`/watch/${watch.slug}`}
+              type="button"
+              onClick={() => setSelectedWatch(watch)}
               data-cursor="view"
-              data-cursor-label="VIEW"
-              className="group flex flex-col bg-white/50 backdrop-blur-md rounded-[28px] p-7 border border-white/80 transition-all duration-300 hover:shadow-[0_20px_40px_rgba(11,11,20,0.08)] hover:bg-white/70"
+              data-cursor-label="INSPECT"
+              className="group text-left flex flex-col bg-white/55 backdrop-blur-md rounded-[28px] p-7 border border-white/85 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(11,11,20,0.1)] hover:bg-white/75 relative cursor-pointer"
             >
-              {/* Card Header */}
-              <div className="flex items-center justify-between mb-4">
-                <span className="px-3 py-1 rounded-full bg-white/80 border border-white font-mono text-[10px] font-semibold text-[#0b0b14] uppercase">
-                  {watch.category}
+              {/* Card Header: Category & Water Resistance */}
+              <div className="flex items-center justify-between mb-4 w-full">
+                <span
+                  className="px-3 py-1 rounded-full font-mono text-[10px] font-bold uppercase border border-white shadow-sm"
+                  style={{
+                    backgroundColor: `${watch.palette.accent}14`,
+                    color: watch.palette.accent,
+                  }}
+                >
+                  {watch.palette.tag || watch.category}
                 </span>
-                <span className="font-mono text-[10px] text-[#0b0b14]/50">
+                <span className="font-mono text-[10px] font-semibold text-[#0b0b14]/50">
                   {watch.waterResistance}
                 </span>
               </div>
@@ -96,26 +110,46 @@ export default function CollectionPage() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-contain drop-shadow-[0_15px_25px_rgba(11,11,20,0.18)] transition-transform duration-500 group-hover:scale-105 group-hover:rotate-[-2deg]"
                 />
+
+                {/* Inspect Action Badge on Hover */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0b0b14]/85 text-white font-mono text-[10px] font-semibold tracking-wider uppercase backdrop-blur-md shadow-lg">
+                    <Eye className="w-3.5 h-3.5 text-[#2a4bd7]" />
+                    10X Inspect
+                  </span>
+                </div>
               </div>
 
-              {/* Card Footer */}
-              <div className="flex flex-col pt-4 border-t border-black/5">
+              {/* Card Footer: Brand, Model, Price */}
+              <div className="flex flex-col pt-4 border-t border-[#0b0b14]/10 w-full">
                 <span className="font-mono text-[10px] tracking-wider text-[#0b0b14]/50 uppercase">
-                  {watch.brand}
+                  {watch.brand} · {watch.movement}
                 </span>
                 <div className="flex items-end justify-between mt-1">
                   <span className="font-display text-xl font-semibold text-[#0b0b14] leading-tight group-hover:text-[#2a4bd7] transition-colors">
                     {watch.model}
                   </span>
-                  <span className="font-mono text-sm font-bold text-[#0b0b14]">
-                    {watch.price}
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-mono text-sm font-bold text-[#0b0b14]">
+                      {watch.price}
+                    </span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#0b0b14]/40 group-hover:text-[#2a4bd7] transition-colors" />
+                  </div>
                 </div>
               </div>
-            </Link>
+            </button>
           ))}
         </div>
       </div>
+
+      {/* Product Detail Overlay with 10X Zoom & Liquid Glass Inspection Window */}
+      {selectedWatch && (
+        <ProductDetailOverlay
+          watch={selectedWatch}
+          onClose={() => setSelectedWatch(null)}
+          onSelectWatch={(w) => setSelectedWatch(w)}
+        />
+      )}
     </div>
   );
 }

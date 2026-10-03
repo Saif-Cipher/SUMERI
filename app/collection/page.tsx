@@ -25,17 +25,17 @@ export default function CollectionPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <span className="h-px w-8 bg-[#0b0b14]/30" />
+              <span className="h-px w-8 bg-[#0b0b14]/30 dark:bg-white/30" />
               <ScrambleText
                 duration={0.8}
                 speed={0.03}
                 scrambleOnHover={true}
-                className="font-mono text-xs font-semibold tracking-[0.25em] text-[#0b0b14]/70 uppercase cursor-default"
+                className="font-mono text-xs font-semibold tracking-[0.25em] text-[#0b0b14]/70 dark:text-white/70 uppercase cursor-default"
               >
                 COLLECTION · VOL. 01 · 15 REFERENCES
               </ScrambleText>
             </div>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-[#0b0b14] leading-[0.92]">
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-[#0b0b14] dark:text-white leading-[0.92] transition-colors">
               The Complete{" "}
               <span className="font-serif italic font-medium accent-gradient-text">
                 Catalog.
@@ -43,7 +43,7 @@ export default function CollectionPage() {
             </h1>
           </div>
 
-          <p className="font-sans text-sm text-[#0b0b14]/70 max-w-sm leading-relaxed">
+          <p className="font-sans text-sm text-[#0b0b14]/70 dark:text-white/70 max-w-sm leading-relaxed transition-colors">
             15 curated horological references collected and verified for tensile integrity,
             mechanical precision, and aesthetic endurance.
           </p>
@@ -51,7 +51,7 @@ export default function CollectionPage() {
 
         {/* Filter Bar */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-12 scrollbar-none">
-          <div className="flex items-center gap-2 pr-3 border-r border-[#0b0b14]/15 mr-1 text-[#0b0b14]/60">
+          <div className="flex items-center gap-2 pr-3 border-r border-[#0b0b14]/15 dark:border-white/15 mr-1 text-[#0b0b14]/60 dark:text-white/60">
             <Filter className="w-4 h-4" />
             <span className="font-mono text-[10px] font-semibold tracking-widest uppercase">
               FILTER
@@ -64,8 +64,8 @@ export default function CollectionPage() {
               onClick={() => setSelectedCat(cat)}
               className={`px-4 py-2 rounded-full font-mono text-xs font-semibold tracking-wider uppercase transition-all ${
                 selectedCat === cat
-                  ? "bg-[#0b0b14] text-white shadow-sm"
-                  : "bg-white/60 hover:bg-white text-[#0b0b14]/75 border border-white/80"
+                  ? "bg-[#0b0b14] dark:bg-[#1f1f7d] text-white shadow-sm"
+                  : "bg-white/60 dark:bg-[#181819]/60 hover:bg-white dark:hover:bg-[#181819]/90 text-[#0b0b14]/75 dark:text-white/75 border border-white/80 dark:border-white/10"
               }`}
               data-cursor="link"
             >
@@ -83,20 +83,20 @@ export default function CollectionPage() {
               onClick={() => setSelectedWatch(watch)}
               data-cursor="view"
               data-cursor-label="INSPECT"
-              className="group text-left flex flex-col bg-white/55 backdrop-blur-md rounded-[28px] p-7 border border-white/85 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(11,11,20,0.1)] hover:bg-white/75 relative cursor-pointer"
+              className="group text-left flex flex-col bg-white/55 dark:bg-[#0d1a41]/60 backdrop-blur-md rounded-[28px] p-7 border border-white/85 dark:border-white/10 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(11,11,20,0.1)] dark:hover:shadow-[0_20px_45px_rgba(0,0,0,0.5)] hover:bg-white/75 dark:hover:bg-[#0d1a41]/85 relative cursor-pointer"
             >
               {/* Card Header: Category & Water Resistance */}
               <div className="flex items-center justify-between mb-4 w-full">
                 <span
-                  className="px-3 py-1 rounded-full font-mono text-[10px] font-bold uppercase border border-white shadow-sm"
+                  className="px-3 py-1 rounded-full font-mono text-[10px] font-bold uppercase border border-white/80 dark:border-white/10 shadow-sm"
                   style={{
-                    backgroundColor: `${watch.palette.accent}14`,
+                    backgroundColor: `${watch.palette.accent}18`,
                     color: watch.palette.accent,
                   }}
                 >
                   {watch.palette.tag || watch.category}
                 </span>
-                <span className="font-mono text-[10px] font-semibold text-[#0b0b14]/50">
+                <span className="font-mono text-[10px] font-semibold text-[#0b0b14]/50 dark:text-white/50">
                   {watch.waterResistance}
                 </span>
               </div>
@@ -108,32 +108,32 @@ export default function CollectionPage() {
                   alt={watch.name}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-contain drop-shadow-[0_15px_25px_rgba(11,11,20,0.18)] transition-transform duration-500 group-hover:scale-105 group-hover:rotate-[-2deg]"
+                  className="object-contain drop-shadow-[0_15px_25px_rgba(11,11,20,0.18)] dark:drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-105 group-hover:rotate-[-2deg]"
                 />
 
                 {/* Inspect Action Badge on Hover */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0b0b14]/85 text-white font-mono text-[10px] font-semibold tracking-wider uppercase backdrop-blur-md shadow-lg">
-                    <Eye className="w-3.5 h-3.5 text-[#2a4bd7]" />
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0b0b14]/85 dark:bg-[#0d1a41]/90 text-white font-mono text-[10px] font-semibold tracking-wider uppercase backdrop-blur-md shadow-lg border border-white/15">
+                    <Eye className="w-3.5 h-3.5 text-[#2a4bd7] dark:text-[#3b82f6]" />
                     10X Inspect
                   </span>
                 </div>
               </div>
 
               {/* Card Footer: Brand, Model, Price */}
-              <div className="flex flex-col pt-4 border-t border-[#0b0b14]/10 w-full">
-                <span className="font-mono text-[10px] tracking-wider text-[#0b0b14]/50 uppercase">
+              <div className="flex flex-col pt-4 border-t border-[#0b0b14]/10 dark:border-white/10 w-full transition-colors">
+                <span className="font-mono text-[10px] tracking-wider text-[#0b0b14]/50 dark:text-white/50 uppercase">
                   {watch.brand} · {watch.movement}
                 </span>
                 <div className="flex items-end justify-between mt-1">
-                  <span className="font-display text-xl font-semibold text-[#0b0b14] leading-tight group-hover:text-[#2a4bd7] transition-colors">
+                  <span className="font-display text-xl font-semibold text-[#0b0b14] dark:text-white leading-tight group-hover:text-[#2a4bd7] dark:group-hover:text-[#3b82f6] transition-colors">
                     {watch.model}
                   </span>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-mono text-sm font-bold text-[#0b0b14]">
+                    <span className="font-mono text-sm font-bold text-[#0b0b14] dark:text-white">
                       {watch.price}
                     </span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#0b0b14]/40 group-hover:text-[#2a4bd7] transition-colors" />
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#0b0b14]/40 dark:text-white/40 group-hover:text-[#2a4bd7] dark:group-hover:text-[#3b82f6] transition-colors" />
                   </div>
                 </div>
               </div>

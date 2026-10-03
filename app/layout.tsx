@@ -5,6 +5,7 @@ import { Header } from "@/components/navigation/Header";
 import { Footer } from "@/components/navigation/Footer";
 import { GlobalBackground } from "@/components/motion/GlobalBackground";
 import { Preloader } from "@/components/ui/Preloader";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 const barlowCondensed = Barlow_Condensed({
   variable: "--font-barlow-condensed",
@@ -48,14 +49,33 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${barlowCondensed.variable} ${inter.variable} ${jetbrainsMono.variable} ${bodoniModa.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col bg-[#c8cff0] text-[#0b0b14] relative selection:bg-[#2a4bd7]/20 selection:text-[#0b0b14]">
-        <Preloader />
-        <GlobalBackground />
-        <Header />
-        <main className="flex-1 relative z-10">{children}</main>
-        <Footer />
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const saved = localStorage.getItem('sumeri-theme');
+                if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-screen flex flex-col bg-[#c8cff0] dark:bg-[#181819] text-[#0b0b14] dark:text-[#f5f5fd] relative selection:bg-[#2a4bd7]/20 selection:text-[#0b0b14] dark:selection:bg-[#3b82f6]/30 dark:selection:text-white transition-colors duration-500">
+        <ThemeProvider>
+          <Preloader />
+          <GlobalBackground />
+          <Header />
+          <main className="flex-1 relative z-10">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

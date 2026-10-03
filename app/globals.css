@@ -2,7 +2,13 @@
 
 @theme {
   --color-obsidian: #0b0b14;
-  --color-carbon: #14141d;
+  --color-carbon: #181819;
+  --color-carbon-black: #181819;
+  --color-yale-blue: #143e69;
+  --color-midnight-blue: #1f1f7d;
+  --color-deep-twilight: #0e0a69;
+  --color-prussian-blue: #0d1a41;
+
   --color-warm-white: #f5f5fd;
   --color-stone: #8a8d9e;
   --color-soft-metal: #b0b4c8;
@@ -34,8 +40,8 @@
     --accent-3: #f02be0;
     --accent-grad: linear-gradient(90deg, #2a4bd7, #7b3fd9 55%, #f02be0);
 
-    --glass-bg: rgba(255, 255, 255, 0.35);
-    --glass-border: rgba(255, 255, 255, 0.55);
+    --glass-bg: rgba(255, 255, 255, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.75);
     --glass-blur: 20px;
 
     --btn-bg: #0b0b14;
@@ -46,6 +52,27 @@
     --radius-pill: 999px;
   }
 
+  .dark {
+    --bg: #181819;
+    --bg-soft: #0d1a41;
+    --ink: #f5f5fd;
+    --ink-muted: rgba(245, 245, 253, 0.68);
+    --hair: rgba(255, 255, 255, 0.12);
+
+    --accent-1: #3b82f6;
+    --accent-2: #1f1f7d;
+    --accent-3: #7b3fd9;
+    --accent-grad: linear-gradient(90deg, #3b82f6, #1f1f7d 55%, #7b3fd9);
+
+    --glass-bg: rgba(13, 26, 65, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-blur: 24px;
+
+    --btn-bg: #f5f5fd;
+    --btn-fg: #181819;
+    --btn-chip: #0d1a41;
+  }
+
   body {
     background-color: var(--bg);
     color: var(--ink);
@@ -53,6 +80,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -70,19 +98,33 @@
 
 /* Luxury Glass Navigation & Panels */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.75);
   box-shadow: 0 10px 30px -10px rgba(11, 11, 20, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.dark .glass-panel {
+  background: rgba(13, 26, 65, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.08);
 }
 
 .glass-pill-nav {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.85);
   box-shadow: 0 8px 32px 0 rgba(11, 11, 20, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.dark .glass-pill-nav {
+  background: rgba(13, 26, 65, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* 3D Stage Hardware Acceleration */
@@ -143,6 +185,12 @@
   background: rgba(11, 11, 20, 0.18);
   border-radius: 999px;
 }
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(11, 11, 20, 0.35);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
 }

@@ -9,7 +9,7 @@ import { JournalTeaser } from "@/components/sections/JournalTeaser";
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-transparent">
-      {/* H2: HERO (3-Column Luxury Presentation with Remotion-Rendered 3D Watch Video) */}
+      {/* H2: HERO (3-Column Presentation · Floating Three-Watch Selector with Morph Transition) */}
       <Hero />
 
       {/* H3: STATEMENT (Sticky Full-Width Editorial Horological Creed) */}

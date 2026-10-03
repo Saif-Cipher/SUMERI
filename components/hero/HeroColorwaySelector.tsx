@@ -152,9 +152,14 @@ export function HeroColorwaySelector({
       </div>
 
       {/* Micro-specs validation footnote */}
-      <div className="hidden lg:flex items-center gap-2 font-mono text-[10px] text-[#0b0b14]/45 pt-1">
-        <span className="h-1.5 w-1.5 rounded-full bg-[#2a4bd7]/60" />
-        <span>CERTIFIED 200M HYDROSTATIC PRESSURE SEAL</span>
+      <div className="hidden lg:flex items-center gap-2 font-mono text-[10px] text-[#0b0b14]/45 pt-1 uppercase">
+        <span
+          className="h-1.5 w-1.5 rounded-full transition-colors duration-500"
+          style={{ backgroundColor: activeWatch.palette.accent }}
+        />
+        <span key={activeWatch.id} className="sumeri-meta-in">
+          {activeWatch.waterResistance} · {activeWatch.movement}
+        </span>
       </div>
     </div>
   );

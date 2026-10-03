@@ -9,7 +9,7 @@
 **SUMERI** is a luxury digital watch exhibition and e-commerce experience designed with haute horlogerie editorial aesthetics, continuous interactive motion, and custom 3D horological engineering.
 
 ### Key Highlights
-- **Interactive 3D Exploded Watch Hero**: 185-frame scroll-controlled deconstruction of the Casio Duro Marlin diver's watch, rendered via HTML5 canvas with sub-pixel anti-aliasing and zero rectangular player frames.
+- **Floating Three-Watch Hero**: One large transparent product watch (MDV-106B-1A1V · EFK-200CD-1A · TW2Y47600) suspended over the hero background, with restrained mouse parallax and a GSAP + SVG-displacement morph when switching via the product cards.
 - **Soffit WebGL Background**: Dynamic real-time gradient atmosphere that harmonically morphs when switching between timepiece colorways.
 - **Scramble-Text Micro-Interactions**: Cryptographic typography effects on metadata, navigation, and blueprint HUD callouts powered by `framer-motion`.
 - **7-Card Waterfall Showcase**: 3D perspective deck with authentic spring physics and dynamic card stacking.
@@ -22,7 +22,7 @@
 - **Framework**: Next.js 16 (App Router, Turbopack, React 19)
 - **Styling**: Tailwind CSS, PostCSS
 - **Animation & Interaction**: GSAP (ScrollTrigger), Framer Motion, Lenis Smooth Scroll
-- **3D Graphics & Rendering**: Three.js, Remotion, WebGL2 (Soffit Shader)
+- **3D Graphics & Rendering**: Three.js, WebGL2 (Soffit Shader)
 - **Image Pipeline**: Sharp (Automated spatial border flood-fill & anti-aliased alpha matting)
 
 ---

@@ -1,6 +1,7 @@
 import { Hero } from "@/components/hero/Hero";
 import { Statement } from "@/components/sections/Statement";
 import { WaterfallShowcase } from "@/components/sections/WaterfallShowcase";
+import { EngineeringArchitecture } from "@/components/sections/EngineeringArchitecture";
 import { CraftSection } from "@/components/sections/CraftSection";
 import { SpecsMarquee } from "@/components/sections/SpecsMarquee";
 import { ReviewsSection } from "@/components/sections/ReviewsSection";
@@ -18,16 +19,19 @@ export default function Home() {
       {/* H4: WATERFALL SHOWCASE (Pinned Scroll-Driven Perspective Waterfall Deck) */}
       <WaterfallShowcase />
 
-      {/* H5: CRAFT (Interactive Exploded View & Engineering Architecture) */}
+      {/* H5: ENGINEERING ARCHITECTURE (Second Watch: Citizen Zenshin 60 Super Titanium + 4 Technical Pillars) */}
+      <EngineeringArchitecture />
+
+      {/* H6: CRAFT (5-Card Cascading Staggered Deck · Physical Watch Craft Details) */}
       <CraftSection />
 
-      {/* H6: SPECS & MARQUEE (Giant Numerals & Continuous Horological Marquee) */}
+      {/* H7: SPECS & MARQUEE (Giant Numerals & Continuous Horological Marquee) */}
       <SpecsMarquee />
 
-      {/* H7: REVIEWS (Editorial Field Evaluation & Critique Slider) */}
+      {/* H8: REVIEWS (Editorial Field Evaluation & Critique Slider) */}
       <ReviewsSection />
 
-      {/* H8: JOURNAL (3-Card Horological Dispatch Teaser) */}
+      {/* H9: JOURNAL (3-Card Horological Dispatch Teaser) */}
       <JournalTeaser />
     </div>
   );

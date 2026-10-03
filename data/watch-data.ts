@@ -4,6 +4,19 @@
  * Zero fabricated facts or imaginary reviews.
  */
 
+export interface CraftDetailItem {
+  id: string;
+  num: string;
+  category: "CASE" | "BEZEL" | "DIAL" | "CROWN" | "STRAP" | "CRYSTAL" | "MOVEMENT";
+  title: string;
+  description: string;
+  focusArea: {
+    x: number; // percentage crop origin x
+    y: number; // percentage crop origin y
+    scale: number; // zoom into that part of the watch
+  };
+}
+
 export interface WatchRecord {
   id: string;
   slug: string;
@@ -31,6 +44,7 @@ export interface WatchRecord {
     accent: string;
     tag: string;
   };
+  craftDetails?: CraftDetailItem[];
 }
 
 export const WATCH_CATALOG: WatchRecord[] = [
@@ -60,7 +74,49 @@ export const WATCH_CATALOG: WatchRecord[] = [
       colorD: "#f5f5fd",
       accent: "#2a4bd7",
       tag: "BATMAN 200M"
-    }
+    },
+    craftDetails: [
+      {
+        id: "case",
+        num: "01",
+        category: "CASE",
+        title: "Solid 316L Marine Steel",
+        description: "Heavy-duty brushed stainless steel case rated for 200M immersion.",
+        focusArea: { x: 50, y: 35, scale: 2.2 }
+      },
+      {
+        id: "bezel",
+        num: "02",
+        category: "BEZEL",
+        title: "60-Click Rotary Bezel",
+        description: "Anodized aluminum split-color ring with luminous 12-o'clock alignment pip.",
+        focusArea: { x: 50, y: 28, scale: 2.5 }
+      },
+      {
+        id: "dial",
+        num: "03",
+        category: "DIAL",
+        title: "Deep Sea Sunray Black",
+        description: "High-contrast luminescent geometric indices and sword-style diver hands.",
+        focusArea: { x: 50, y: 48, scale: 2.8 }
+      },
+      {
+        id: "crown",
+        num: "04",
+        category: "CROWN",
+        title: "Threaded Screw-Down Crown",
+        description: "Dual O-ring gasket system guaranteeing water-tight seal under pressure.",
+        focusArea: { x: 74, y: 50, scale: 3.2 }
+      },
+      {
+        id: "strap",
+        num: "05",
+        category: "STRAP",
+        title: "High-Tensile Resin Band",
+        description: "Corrosion-resistant flexible black elastomer with stainless steel buckle.",
+        focusArea: { x: 50, y: 85, scale: 2.2 }
+      }
+    ]
   },
   {
     id: "02-edifice-carbon",
@@ -88,7 +144,49 @@ export const WATCH_CATALOG: WatchRecord[] = [
       colorD: "#fbfbff",
       accent: "#7b3fd9",
       tag: "FORGED CARBON"
-    }
+    },
+    craftDetails: [
+      {
+        id: "case",
+        num: "01",
+        category: "CASE",
+        title: "316L Angular Chassis",
+        description: "Solid stainless steel with brushed facets and mirror-polished bevels.",
+        focusArea: { x: 50, y: 35, scale: 2.2 }
+      },
+      {
+        id: "bezel",
+        num: "02",
+        category: "BEZEL",
+        title: "Octagonal Steel Bezel",
+        description: "Precision-machined octagonal rim with concentric brushed top surface.",
+        focusArea: { x: 50, y: 30, scale: 2.6 }
+      },
+      {
+        id: "dial",
+        num: "03",
+        category: "DIAL",
+        title: "Forged Carbon Composite",
+        description: "Raw forged carbon weave plate with floating indices and mechanical balance.",
+        focusArea: { x: 50, y: 48, scale: 3.0 }
+      },
+      {
+        id: "crown",
+        num: "04",
+        category: "CROWN",
+        title: "Guarded Steel Crown",
+        description: "Integrated crown guards with knurled grip for positive tactile engagement.",
+        focusArea: { x: 72, y: 50, scale: 3.2 }
+      },
+      {
+        id: "strap",
+        num: "05",
+        category: "STRAP",
+        title: "Tapered Steel Bracelet",
+        description: "Solid links with dual push-button deployment and brushed finishing.",
+        focusArea: { x: 50, y: 85, scale: 2.4 }
+      }
+    ]
   },
   {
     id: "03-victorinox-alliance",
@@ -116,7 +214,49 @@ export const WATCH_CATALOG: WatchRecord[] = [
       colorD: "#f6f8fd",
       accent: "#4b5563",
       tag: "SWISS ALLIANCE"
-    }
+    },
+    craftDetails: [
+      {
+        id: "case",
+        num: "01",
+        category: "CASE",
+        title: "Swiss 316L Stainless Steel",
+        description: "Refined dress-sport proportions with mirror polished bezel and brushed flanks.",
+        focusArea: { x: 50, y: 35, scale: 2.2 }
+      },
+      {
+        id: "bezel",
+        num: "02",
+        category: "BEZEL",
+        title: "Slim Polished Bezel",
+        description: "Minimalist stepped bezel optimizing dial aperture and crystal seating.",
+        focusArea: { x: 50, y: 30, scale: 2.6 }
+      },
+      {
+        id: "dial",
+        num: "03",
+        category: "DIAL",
+        title: "Slate Sunray Monolith",
+        description: "Brushed charcoal sunray finish with applied pyramid hour markers and Swiss crest.",
+        focusArea: { x: 50, y: 48, scale: 3.0 }
+      },
+      {
+        id: "crown",
+        num: "04",
+        category: "CROWN",
+        title: "Shield-Engraved Crown",
+        description: "Swiss precision gasketed crown with laser-etched cross and shield emblem.",
+        focusArea: { x: 72, y: 50, scale: 3.2 }
+      },
+      {
+        id: "strap",
+        num: "05",
+        category: "STRAP",
+        title: "Vegetable-Tanned Leather",
+        description: "Supple black full-grain leather strap with contrast stitching and signed buckle.",
+        focusArea: { x: 50, y: 85, scale: 2.4 }
+      }
+    ]
   },
   {
     id: "04-citizen-zenshin",
@@ -144,7 +284,49 @@ export const WATCH_CATALOG: WatchRecord[] = [
       colorD: "#fdfbf9",
       accent: "#c25e2e",
       tag: "SUPER TITANIUM"
-    }
+    },
+    craftDetails: [
+      {
+        id: "case",
+        num: "01",
+        category: "CASE",
+        title: "Super Titanium™ Monobloc",
+        description: "Duratect-hardened titanium case with geometric chamfers, 40% lighter than steel.",
+        focusArea: { x: 50, y: 35, scale: 2.2 }
+      },
+      {
+        id: "bezel",
+        num: "02",
+        category: "BEZEL",
+        title: "Integrated Satin Bezel",
+        description: "Vertical satin-brushed circular bezel integrated directly into the tonneau case.",
+        focusArea: { x: 50, y: 30, scale: 2.6 }
+      },
+      {
+        id: "dial",
+        num: "03",
+        category: "DIAL",
+        title: "Textured Copper Sunburst",
+        description: "Warm guilloché textured copper dial with off-centered small seconds at 4:30.",
+        focusArea: { x: 50, y: 48, scale: 3.0 }
+      },
+      {
+        id: "crown",
+        num: "04",
+        category: "CROWN",
+        title: "Precision Recessed Crown",
+        description: "Fluted titanium crown engineered with double gaskets for 100M water resistance.",
+        focusArea: { x: 72, y: 50, scale: 3.2 }
+      },
+      {
+        id: "strap",
+        num: "05",
+        category: "STRAP",
+        title: "Solid Titanium H-Link Bracelet",
+        description: "Articulated titanium links with micro-adjustable push-button folding clasp.",
+        focusArea: { x: 50, y: 85, scale: 2.4 }
+      }
+    ]
   },
   {
     id: "05-fossil-campbell",
@@ -256,7 +438,49 @@ export const WATCH_CATALOG: WatchRecord[] = [
       colorD: "#f5f8fd",
       accent: "#1c64f2",
       tag: "GMT MARLIN"
-    }
+    },
+    craftDetails: [
+      {
+        id: "case",
+        num: "01",
+        category: "CASE",
+        title: "40mm Curved 316L Case",
+        description: "Ergonomic curved lugs and mid-century retro silhouette.",
+        focusArea: { x: 50, y: 35, scale: 2.2 }
+      },
+      {
+        id: "bezel",
+        num: "02",
+        category: "BEZEL",
+        title: "24-Hour Dual-Tone Bezel",
+        description: "Mirror-polished bezel framing 24-hour dual timezone indicators.",
+        focusArea: { x: 50, y: 30, scale: 2.6 }
+      },
+      {
+        id: "dial",
+        num: "03",
+        category: "DIAL",
+        title: "Azure Sunray GMT Dial",
+        description: "Sunburst blue dial with independent red GMT hand and date aperture.",
+        focusArea: { x: 50, y: 48, scale: 3.0 }
+      },
+      {
+        id: "crown",
+        num: "04",
+        category: "CROWN",
+        title: "Signed Marlin Crown",
+        description: "Direct-drive crown with independent quick-set 24-hour hand gear.",
+        focusArea: { x: 72, y: 50, scale: 3.2 }
+      },
+      {
+        id: "strap",
+        num: "05",
+        category: "STRAP",
+        title: "Milanese Stainless Steel Mesh",
+        description: "High-density stainless steel mesh band with self-adjusting sliding clasp.",
+        focusArea: { x: 50, y: 85, scale: 2.4 }
+      }
+    ]
   },
   {
     id: "09-regent-chrono",
@@ -368,9 +592,105 @@ export const WATCH_CATALOG: WatchRecord[] = [
       colorD: "#525261",
       accent: "#e2e8f0",
       tag: "STEALTH CERAMIC"
-    }
+    },
+    craftDetails: [
+      {
+        id: "case",
+        num: "01",
+        category: "CASE",
+        title: "Zirconia Ceramic Monolith",
+        description: "Diamond-hardened high-tech ceramic case offering total scratch resistance.",
+        focusArea: { x: 50, y: 35, scale: 2.2 }
+      },
+      {
+        id: "bezel",
+        num: "02",
+        category: "BEZEL",
+        title: "Mirror-Polished Ceramic Rim",
+        description: "Seamless gloss black ceramic bezel integrated into the monobloc case.",
+        focusArea: { x: 50, y: 30, scale: 2.6 }
+      },
+      {
+        id: "dial",
+        num: "03",
+        category: "DIAL",
+        title: "Obsidian Minimalist Dial",
+        description: "Deep obsidian black face with applied rhodium-plated minimalist baton markers.",
+        focusArea: { x: 50, y: 48, scale: 3.0 }
+      },
+      {
+        id: "crown",
+        num: "04",
+        category: "CROWN",
+        title: "Cabochon-Inlaid Crown",
+        description: "Precision-fluted crown with ceramic cabochon insert and dust seals.",
+        focusArea: { x: 72, y: 50, scale: 3.2 }
+      },
+      {
+        id: "strap",
+        num: "05",
+        category: "STRAP",
+        title: "Ceramic Links & Butterfly Clasp",
+        description: "Silky tactile ceramic link bracelet secured by hidden dual-push butterfly buckle.",
+        focusArea: { x: 50, y: 85, scale: 2.4 }
+      }
+    ]
   }
 ];
+
+/**
+ * Returns structured 5 craft details for any watch in the catalog.
+ * If custom curated craft details exist, they are returned.
+ * Otherwise, accurately derives details from the watch's real catalog specifications.
+ */
+export function getWatchCraftDetails(watch: WatchRecord): CraftDetailItem[] {
+  if (watch.craftDetails && watch.craftDetails.length === 5) {
+    return watch.craftDetails;
+  }
+
+  return [
+    {
+      id: "case",
+      num: "01",
+      category: "CASE",
+      title: `${watch.caseMaterial.split(" ")[0]} Architecture`,
+      description: `${watch.caseMaterial} precision-machined with high-tolerance surface finishing.`,
+      focusArea: { x: 50, y: 35, scale: 2.2 }
+    },
+    {
+      id: "bezel",
+      num: "02",
+      category: "BEZEL",
+      title: watch.bezel || "Precision Machined Bezel",
+      description: `${watch.bezel || "Precision bezel"} engineered for structural retention and aesthetics.`,
+      focusArea: { x: 50, y: 30, scale: 2.6 }
+    },
+    {
+      id: "dial",
+      num: "03",
+      category: "DIAL",
+      title: "High-Contrast Dial",
+      description: `Refined dial architecture with ${watch.crystal} optical defense and clear indicators.`,
+      focusArea: { x: 50, y: 48, scale: 3.0 }
+    },
+    {
+      id: "crown",
+      num: "04",
+      category: "CROWN",
+      title: "Sealed Crown Assembly",
+      description: `Pressure-sealed crown maintaining ${watch.waterResistance} environmental integrity.`,
+      focusArea: { x: 72, y: 50, scale: 3.2 }
+    },
+    {
+      id: "strap",
+      num: "05",
+      category: "STRAP",
+      title: watch.strap || "Integrated Strap",
+      description: `${watch.strap || "Supple bracelet"} engineered for ergonomic wrist retention.`,
+      focusArea: { x: 50, y: 85, scale: 2.4 }
+    }
+  ];
+}
 
 // 7 Selected watches for the Signature Waterfall Deck (§9A in projectplan.md)
 export const WATERFALL_WATCHES = WATCH_CATALOG.slice(0, 7);

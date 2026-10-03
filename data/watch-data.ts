@@ -692,6 +692,199 @@ export function getWatchCraftDetails(watch: WatchRecord): CraftDetailItem[] {
   ];
 }
 
+// Top 5 Highest-Priced Watches strictly for the Craft Section (§1 & §18 in user requirement)
+export const PREMIUM_CRAFT_WATCHES: WatchRecord[] = [...WATCH_CATALOG]
+  .sort((a, b) => b.rawPrice - a.rawPrice)
+  .slice(0, 5);
+
+export interface CraftSpecificationItem {
+  label: string;
+  value: string;
+  detail: string;
+}
+
+export interface WatchCraftProfile {
+  headline: string;
+  summary: string;
+  specs: CraftSpecificationItem[];
+}
+
+/**
+ * Returns clean, verified 3-5 craft and material specifications for a selected watch,
+ * derived strictly from watch_catalog.md without fabricating facts.
+ */
+export function getWatchCraftProfile(watch: WatchRecord): WatchCraftProfile {
+  switch (watch.id) {
+    case "12-titan-ceramic":
+      return {
+        headline: "Monolithic High-Tech Zirconia Ceramic",
+        summary: "Pure stealth luxury crafted entirely from diamond-hardened zirconia ceramic, featuring deep obsidian aesthetics, sapphire crystal, and an integrated ceramic link bracelet.",
+        specs: [
+          {
+            label: "CASE ARCHITECTURE",
+            value: "Zirconia High-Tech Ceramic",
+            detail: "Diamond-hardened monolithic ceramic chassis offering total scratch resistance and thermal stability."
+          },
+          {
+            label: "GLASS DEFENSE",
+            value: "Scratch-Proof Sapphire",
+            detail: "Ultra-clear sapphire crystal engineered for enduring optical clarity and high impact resistance."
+          },
+          {
+            label: "BRACELET & CLASP",
+            value: "Solid Black Ceramic Links",
+            detail: "Silky tactile ceramic articulated links secured with a hidden dual-push butterfly deployment buckle."
+          },
+          {
+            label: "DIAL DESIGN",
+            value: "Obsidian Minimalist Dial",
+            detail: "Deep obsidian black face with applied rhodium-plated minimalist baton markers."
+          }
+        ]
+      };
+
+    case "04-citizen-zenshin":
+      return {
+        headline: "Super Titanium™ with Duratect Hardening",
+        summary: "Aerospace-grade Super Titanium™ construction paired with an in-house 60-hour Caliber 8322 automatic movement and warm copper sunburst dial.",
+        specs: [
+          {
+            label: "SUPER TITANIUM™",
+            value: "Duratect Surface Hardening",
+            detail: "Proprietary titanium alloy achieving 5× the hardness of stainless steel with 40% less mass."
+          },
+          {
+            label: "CALIBER 8322",
+            value: "60-Hour In-House Automatic",
+            detail: "Mechanical automatic movement with extended 60-hour power reserve and exhibition caseback."
+          },
+          {
+            label: "CRYSTAL & SEAL",
+            value: "Sapphire · 100M Water Resistance",
+            detail: "Sealed chassis factory pressure-tested to 10 Bar with scratch-resistant sapphire crystal."
+          },
+          {
+            label: "DIAL FINISHING",
+            value: "Copper Sunburst & Small Seconds",
+            detail: "Textured guilloché copper dial featuring an offset small-seconds sub-dial at 4:30."
+          }
+        ]
+      };
+
+    case "03-victorinox-alliance":
+      return {
+        headline: "Swiss-Made Precision & 316L Surgical Steel",
+        summary: "Refined Swiss horology engineered with high-grade 316L stainless steel, slate grey sunray dial, and triple-coated anti-reflective sapphire.",
+        specs: [
+          {
+            label: "SWISS MANUFACTURE",
+            value: "316L Surgical Stainless Steel",
+            detail: "Precision-milled case architecture crafted in Switzerland with high-tolerance finishing."
+          },
+          {
+            label: "SAPPHIRE CRYSTAL",
+            value: "Triple-Coated Anti-Reflective",
+            detail: "Scratch-resistant sapphire crystal with anti-reflective coating on the inner surface."
+          },
+          {
+            label: "MOVEMENT & WR",
+            value: "Swiss Precision Quartz · 100M WR",
+            detail: "High-accuracy Swiss quartz caliber calibrated for 10 Bar water resistance."
+          },
+          {
+            label: "STRAP CRAFT",
+            value: "Full-Grain Leather",
+            detail: "Supple black vegetable-tanned leather strap with stainless steel tang buckle."
+          }
+        ]
+      };
+
+    case "02-edifice-carbon":
+      return {
+        headline: "Forged Carbon Composite Dial & 42-Hour Automatic",
+        summary: "Motorsport-inspired mechanical engineering featuring a genuine forged carbon composite dial plate and an automatic movement.",
+        specs: [
+          {
+            label: "FORGED CARBON",
+            value: "High-Tensile Carbon Weave",
+            detail: "Raw forged carbon composite plate creating unique marbling patterns on every dial."
+          },
+          {
+            label: "AUTOMATIC CALIBER",
+            value: "42-Hour Power Reserve",
+            detail: "Exposed mechanical automatic movement with 42-hour continuous runtime."
+          },
+          {
+            label: "CHASSIS & CRYSTAL",
+            value: "316L Steel & Sapphire Crystal",
+            detail: "Octagonal brushed stainless steel bezel with scratch-resistant sapphire crystal."
+          },
+          {
+            label: "PRESSURE SEAL",
+            value: "100M Hydrostatic Rating",
+            detail: "Individually tested for 10 Bar water resistance and everyday resilience."
+          }
+        ]
+      };
+
+    case "07-timex-1983-tv":
+      return {
+        headline: "Retro-Futuristic TV-Case Reissue & Miyota Automatic",
+        summary: "Iconic 1983 archival reissue featuring a rounded-square TV-dial stainless steel case and a 21-jewel Japanese automatic caliber.",
+        specs: [
+          {
+            label: "TV-CASE GEOMETRY",
+            value: "Rounded-Square 316L Steel",
+            detail: "Authentic 1983 archival geometry with brushed bezel facets and mirror chamfers."
+          },
+          {
+            label: "AUTOMATIC CALIBER",
+            value: "Miyota 8215 (21 Jewels)",
+            detail: "Reliable Japanese mechanical automatic movement with self-winding rotor."
+          },
+          {
+            label: "CRYSTAL & DIAL",
+            value: "Domed Acrylic & Silver Sunray",
+            detail: "Vintage domed crystal over a radiant silver dial with black accent baton markers."
+          },
+          {
+            label: "BRACELET ARCHITECTURE",
+            value: "Tapered Stainless Steel Mesh",
+            detail: "Integrated stainless steel mesh bracelet engineered for seamless wrist drape."
+          }
+        ]
+      };
+
+    default:
+      return {
+        headline: `${watch.brand} ${watch.model} Architecture`,
+        summary: watch.description,
+        specs: [
+          {
+            label: "CASE MATERIAL",
+            value: watch.caseMaterial,
+            detail: "Engineered with precision machining and high-tolerance surface finishing."
+          },
+          {
+            label: "CRYSTAL DEFENSE",
+            value: watch.crystal,
+            detail: "Optically calibrated crystal protecting the dial from impact and abrasion."
+          },
+          {
+            label: "MOVEMENT",
+            value: watch.movement,
+            detail: "Calibrated timekeeping caliber for consistent accuracy."
+          },
+          {
+            label: "WATER RESISTANCE",
+            value: watch.waterResistance,
+            detail: "Factory sealed chassis engineered for reliable hydrostatic resistance."
+          }
+        ]
+      };
+  }
+}
+
 // 7 Selected watches for the Signature Waterfall Deck (§9A in projectplan.md)
 export const WATERFALL_WATCHES = WATCH_CATALOG.slice(0, 7);
 

@@ -2,50 +2,49 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { WATCH_CATALOG, WatchRecord, getWatchCraftDetails } from "@/data/watch-data";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  PREMIUM_CRAFT_WATCHES,
+  WatchRecord,
+  getWatchCraftProfile,
+} from "@/data/watch-data";
 import { ScrambleText } from "@/components/ui/scramble-text";
-
-// Featured watches available for the Craft Cascade showcase
-const CRAFT_FEATURED_WATCHES = [
-  WATCH_CATALOG.find((w) => w.id === "02-edifice-carbon") || WATCH_CATALOG[1], // Casio Edifice Forged Carbon
-  WATCH_CATALOG.find((w) => w.id === "08-timex-marlin-gmt") || WATCH_CATALOG[7], // Timex Marlin GMT
-  WATCH_CATALOG.find((w) => w.id === "03-victorinox-alliance") || WATCH_CATALOG[2], // Victorinox Alliance
-  WATCH_CATALOG.find((w) => w.id === "12-titan-ceramic") || WATCH_CATALOG[11], // Titan Stealth Ceramic
-];
+import { ArrowRight, ShieldCheck, Sparkles, Layers, ArrowUpRight } from "lucide-react";
 
 export function CraftSection() {
-  const [selectedWatch, setSelectedWatch] = useState<WatchRecord>(CRAFT_FEATURED_WATCHES[0]);
-  const [activeCardIndex, setActiveCardIndex] = useState<number>(2); // Center card active by default
-  const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [mobileExpanded, setMobileExpanded] = useState<boolean>(false);
+  // Default selection: Titan 1841NC01 (top-priced watch in catalog)
+  const [selectedWatch, setSelectedWatch] = useState<WatchRecord>(PREMIUM_CRAFT_WATCHES[0]);
+  const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
+  const [isStackHovered, setIsStackHovered] = useState<boolean>(false);
 
-  const craftDetails = getWatchCraftDetails(selectedWatch);
-  const activeDetail = craftDetails[activeCardIndex] || craftDetails[2];
+  const selectedIndex = PREMIUM_CRAFT_WATCHES.findIndex((w) => w.id === selectedWatch.id);
+  const activeProfile = getWatchCraftProfile(selectedWatch);
 
-  // Dynamic Card Cascade Stagger calculations
+  // Dynamic Card Cascade Stagger calculations based on CardCascadeStagger physics
   const getCardTransform = (index: number) => {
-    const isCenter = index === 2;
-    const diff = index - 2; // -2, -1, 0, 1, 2
+    const isSelected = selectedWatch.id === PREMIUM_CRAFT_WATCHES[index].id;
+    const isCardHovered = hoveredCardIndex === index;
+    const diff = index - 2; // -2, -1, 0, 1, 2 from center
 
-    // When hovered or mobile expanded: cards fan outward horizontally & vertically with rotation
-    if (isHovered || mobileExpanded) {
+    // When deck is hovered: fan cards outward horizontally & vertically with slight rotation
+    if (isStackHovered) {
       return {
-        x: diff * 85,
-        y: Math.abs(diff) * 16 - 8,
-        rotate: diff * 5,
-        scale: index === activeCardIndex ? 1.05 : 0.96,
-        zIndex: index === activeCardIndex ? 30 : 20 - Math.abs(diff),
+        x: diff * 115,
+        y: Math.abs(diff) * 18 - 8,
+        rotate: diff * 4.5,
+        scale: isCardHovered ? 1.06 : isSelected ? 1.02 : 0.96,
+        zIndex: isCardHovered ? 40 : isSelected ? 30 : 20 - Math.abs(diff),
       };
     }
 
-    // Idle stacked state: tightly overlapping deck
+    // Idle stacked composition: gracefully overlapping deck
     return {
-      x: diff * 22,
-      y: Math.abs(diff) * 10,
+      x: diff * 28,
+      y: Math.abs(diff) * 12,
       rotate: diff * 2.5,
-      scale: isCenter ? 1.0 : 0.95 - Math.abs(diff) * 0.03,
-      zIndex: 20 - Math.abs(diff),
+      scale: isSelected ? 1.04 : 0.95 - Math.abs(diff) * 0.02,
+      zIndex: isSelected ? 30 : 20 - Math.abs(diff),
     };
   };
 
@@ -56,8 +55,8 @@ export function CraftSection() {
     >
       <div className="max-w-[1560px] mx-auto">
         
-        {/* Section Header with Product Selector Pills */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 sm:mb-20">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-20">
           <div>
             <div className="flex items-center gap-3 mb-3">
               <span className="h-px w-8 bg-[#0b0b14]/30" />
@@ -70,7 +69,7 @@ export function CraftSection() {
                 WATCH CRAFT & HOROLOGY · 03
               </ScrambleText>
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#0b0b14] leading-[0.95] transition-colors">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#0b0b14] leading-[0.95]">
               Artisanal{" "}
               <span className="font-serif italic font-medium accent-gradient-text">
                 Metallurgy.
@@ -78,103 +77,36 @@ export function CraftSection() {
             </h2>
           </div>
 
-          {/* Model Switcher Pill Bar */}
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-[10px] font-bold text-[#0b0b14]/50 uppercase mr-1 hidden sm:inline-block">
-              SELECT CHASSIS:
-            </span>
-            {CRAFT_FEATURED_WATCHES.map((w) => (
-              <button
-                key={w.id}
-                type="button"
-                onClick={() => {
-                  setSelectedWatch(w);
-                  setActiveCardIndex(2);
-                }}
-                data-cursor="link"
-                className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold tracking-wider uppercase transition-all ${
-                  selectedWatch.id === w.id
-                    ? "bg-[#0b0b14] text-white shadow-sm ring-1 ring-white/20"
-                    : "bg-white/55 hover:bg-white text-[#0b0b14]/75 border border-white/80"
-                }`}
-              >
-                {w.model}
-              </button>
-            ))}
-          </div>
+          <p className="font-sans text-sm text-[#0b0b14]/70 max-w-sm leading-relaxed">
+            Select from the five pinnacle horological references in our archive to examine
+            their structural architecture, proprietary alloys, and caliber finishing.
+          </p>
         </div>
 
-        {/* Main Craft Interactive Stagger Cascade Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        {/* 2-Column Editorial Grid: Left 5-Card Staggered Fan Deck / Right Selected Watch Craft Profile */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* LEFT: Contextual Horological Narrative */}
-          <div className="lg:col-span-4 flex flex-col justify-center">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="font-mono text-xs font-bold text-[#0b0b14]/60 uppercase">
-                {selectedWatch.brand}
-              </span>
-              <span className="h-1 w-1 rounded-full bg-[#0b0b14]/30" />
-              <span className="font-mono text-xs font-bold text-[#2a4bd7] uppercase">
-                {selectedWatch.category}
-              </span>
-            </div>
-
-            <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#0b0b14] tracking-tight mb-3">
-              {selectedWatch.name}
-            </h3>
-
-            <p className="font-sans text-xs sm:text-sm text-[#0b0b14]/75 leading-relaxed mb-6">
-              {selectedWatch.description}
-            </p>
-
-            {/* Active Highlight Detail Callout Box */}
-            <div className="p-5 rounded-2xl bg-white/65 border border-white/90 shadow-sm backdrop-blur-md">
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[10px] font-bold text-[#2a4bd7] tracking-widest uppercase">
-                  {activeDetail.num} // {activeDetail.category}
-                </span>
-                <span className="font-mono text-[10px] text-[#0b0b14]/50">
-                  ACTIVE FOCUS
-                </span>
-              </div>
-              <h4 className="font-display text-lg font-bold text-[#0b0b14] mb-1">
-                {activeDetail.title}
-              </h4>
-              <p className="font-sans text-xs text-[#0b0b14]/75 leading-snug">
-                {activeDetail.description}
-              </p>
-            </div>
-
-            {/* Mobile Touch Guidance Tip */}
-            <div className="mt-4 lg:hidden text-center">
-              <span className="font-mono text-[10px] text-[#0b0b14]/60 uppercase tracking-widest">
-                {mobileExpanded ? "TAP ANY CARD TO FOCUS DETAIL" : "TAP STACK TO CASCADE CRAFT CARDS"}
-              </span>
-            </div>
-          </div>
-
-          {/* RIGHT / CENTER: 5-Card Staggered Cascade Deck */}
-          <div className="lg:col-span-8 flex flex-col items-center justify-center min-h-[440px] sm:min-h-[520px] relative">
+          {/* ================= LEFT / PRIMARY: 5-CARD WATCH CASCADE DECK ================= */}
+          <div className="lg:col-span-7 flex flex-col items-center justify-center">
             
-            {/* Cascade Deck Interactive Container */}
+            {/* Staggered Interactive Cascade Deck */}
             <div
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              onClick={() => setMobileExpanded((prev) => !prev)}
-              className="relative w-full max-w-[700px] h-[380px] sm:h-[440px] flex items-center justify-center cursor-pointer select-none"
+              onMouseEnter={() => setIsStackHovered(true)}
+              onMouseLeave={() => {
+                setIsStackHovered(false);
+                setHoveredCardIndex(null);
+              }}
+              className="relative w-full max-w-[620px] h-[400px] sm:h-[480px] flex items-center justify-center cursor-pointer select-none"
             >
-              {craftDetails.map((detail, idx) => {
+              {PREMIUM_CRAFT_WATCHES.map((watch, idx) => {
+                const isSelected = selectedWatch.id === watch.id;
                 const transform = getCardTransform(idx);
-                const isActive = idx === activeCardIndex;
 
                 return (
                   <motion.div
-                    key={detail.id}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveCardIndex(idx);
-                      setMobileExpanded(true);
-                    }}
+                    key={watch.id}
+                    onClick={() => setSelectedWatch(watch)}
+                    onMouseEnter={() => setHoveredCardIndex(idx)}
                     initial={false}
                     animate={{
                       x: transform.x,
@@ -185,58 +117,51 @@ export function CraftSection() {
                     }}
                     transition={{
                       type: "spring",
-                      stiffness: 220,
+                      stiffness: 200,
                       damping: 22,
-                      mass: 0.85,
+                      mass: 0.9,
                     }}
-                    whileHover={{
-                      scale: 1.08,
-                      transition: { duration: 0.2 },
-                    }}
-                    className={`absolute w-[180px] sm:w-[220px] h-[280px] sm:h-[340px] rounded-[24px] p-4 sm:p-5 flex flex-col justify-between transition-colors shadow-[0_15px_35px_rgba(11,11,20,0.12)] border backdrop-blur-2xl ${
-                      isActive
-                        ? "bg-white/95 border-[#2a4bd7] ring-2 ring-[#2a4bd7]/30"
-                        : "bg-white/75 hover:bg-white/85 border-white/90"
+                    className={`absolute w-[180px] sm:w-[210px] h-[290px] sm:h-[360px] rounded-[26px] p-4 sm:p-5 flex flex-col justify-between transition-colors shadow-[0_18px_35px_rgba(11,11,20,0.12)] border backdrop-blur-2xl ${
+                      isSelected
+                        ? "bg-white/95 border-[#2a4bd7] ring-2 ring-[#2a4bd7]/30 shadow-[0_20px_45px_rgba(42,75,215,0.18)]"
+                        : "bg-white/75 hover:bg-white/90 border-white/90"
                     }`}
                   >
-                    {/* Card Top: Number & Category Badge */}
+                    {/* Card Top: Sequential Index & Category Badge */}
                     <div className="flex items-center justify-between w-full">
                       <span className="font-mono text-[10px] font-bold text-[#2a4bd7] tracking-wider">
-                        {detail.num}
+                        0{idx + 1} / 05
                       </span>
-                      <span className="font-mono text-[9px] font-bold tracking-widest px-2 py-0.5 rounded-full uppercase bg-white/80 text-[#0b0b14] border border-white/60">
-                        {detail.category}
+                      <span className="font-mono text-[9px] font-bold tracking-widest px-2 py-0.5 rounded-full uppercase bg-white/85 text-[#0b0b14] border border-white/70 shadow-2xs">
+                        {watch.category}
                       </span>
                     </div>
 
-                    {/* Card Center: Focused Crop of Real Watch Asset */}
-                    <div className="relative w-full h-[140px] sm:h-[180px] overflow-hidden rounded-xl bg-white/40 my-auto flex items-center justify-center border border-white/50">
-                      <div
-                        className="relative w-full h-full flex items-center justify-center transition-transform duration-500 will-change-transform pointer-events-none"
-                        style={{
-                          transformOrigin: `${detail.focusArea.x}% ${detail.focusArea.y}%`,
-                          transform: `scale(${detail.focusArea.scale})`,
-                        }}
-                      >
-                        <Image
-                          src={selectedWatch.image}
-                          alt={`${selectedWatch.name} ${detail.category}`}
-                          fill
-                          sizes="240px"
-                          unoptimized
-                          className="object-contain select-none drop-shadow-[0_10px_20px_rgba(11,11,20,0.15)]"
-                        />
+                    {/* Card Center: ONE COMPLETE, UNBROKEN FULL WATCH */}
+                    <div className="relative w-full h-[150px] sm:h-[200px] my-auto flex items-center justify-center py-2">
+                      <Image
+                        src={watch.image}
+                        alt={`${watch.brand} ${watch.model}`}
+                        fill
+                        unoptimized
+                        sizes="260px"
+                        className="object-contain select-none drop-shadow-[0_12px_22px_rgba(11,11,20,0.18)] transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+
+                    {/* Card Bottom: Brand, Model, Price */}
+                    <div className="w-full pt-2 border-t border-[#0b0b14]/10 flex flex-col">
+                      <span className="font-mono text-[9px] font-semibold text-[#0b0b14]/55 uppercase tracking-wider">
+                        {watch.brand}
+                      </span>
+                      <div className="flex items-baseline justify-between mt-0.5">
+                        <span className="font-display text-sm sm:text-base font-bold text-[#0b0b14] truncate max-w-[110px]">
+                          {watch.model}
+                        </span>
+                        <span className="font-mono text-[11px] font-bold text-[#2a4bd7]">
+                          {watch.price}
+                        </span>
                       </div>
-                    </div>
-
-                    {/* Card Bottom: Concise Title & 1-line description */}
-                    <div className="w-full pt-2 border-t border-[#0b0b14]/5">
-                      <h5 className="font-display text-sm sm:text-base font-bold text-[#0b0b14] leading-tight truncate">
-                        {detail.title}
-                      </h5>
-                      <p className="font-sans text-[10px] sm:text-xs text-[#0b0b14]/70 leading-snug line-clamp-2 mt-0.5">
-                        {detail.description}
-                      </p>
                     </div>
                   </motion.div>
                 );
@@ -244,12 +169,114 @@ export function CraftSection() {
             </div>
 
             {/* Desktop Interaction Prompt */}
-            <div className="mt-8 hidden sm:flex items-center gap-2 font-mono text-[10px] tracking-widest text-[#0b0b14]/50 uppercase">
-              <span>HOVER TO CASCADE</span>
+            <div className="mt-6 hidden sm:flex items-center gap-2 font-mono text-[10px] tracking-widest text-[#0b0b14]/50 uppercase">
+              <span>HOVER TO SPREAD</span>
               <span>·</span>
-              <span>CLICK CARD TO FOCUS DETAIL</span>
+              <span>CLICK TO SELECT WATCH</span>
             </div>
 
+            {/* Mobile Touch Stepper Indicator */}
+            <div className="mt-4 flex sm:hidden items-center gap-2">
+              {PREMIUM_CRAFT_WATCHES.map((w, idx) => (
+                <button
+                  key={w.id}
+                  type="button"
+                  onClick={() => setSelectedWatch(w)}
+                  className={`h-2 rounded-full transition-all ${
+                    selectedWatch.id === w.id ? "w-6 bg-[#2a4bd7]" : "w-2 bg-[#0b0b14]/20"
+                  }`}
+                  aria-label={`Select ${w.model}`}
+                />
+              ))}
+            </div>
+
+          </div>
+
+          {/* ================= RIGHT: SELECTED WATCH CRAFT SPECIFICATION PANEL ================= */}
+          <div className="lg:col-span-5 flex flex-col justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedWatch.id}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="flex flex-col"
+              >
+                {/* Reference Eyebrow */}
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="font-mono text-xs font-bold text-[#0b0b14]/60 uppercase">
+                    REFERENCE 0{selectedIndex + 1}
+                  </span>
+                  <span className="h-1 w-1 rounded-full bg-[#0b0b14]/30" />
+                  <span className="font-mono text-xs font-bold text-[#2a4bd7] uppercase">
+                    {selectedWatch.brand}
+                  </span>
+                </div>
+
+                {/* Model Title & Price */}
+                <div className="flex items-baseline justify-between gap-4 mb-2">
+                  <h3 className="font-display text-3xl sm:text-4xl font-bold text-[#0b0b14] tracking-tight">
+                    {selectedWatch.model}
+                  </h3>
+                  <span className="font-display text-2xl sm:text-3xl font-bold text-[#2a4bd7]">
+                    {selectedWatch.price}
+                  </span>
+                </div>
+
+                {/* Craft Headline & Summary */}
+                <h4 className="font-sans text-sm font-semibold text-[#0b0b14]/90 mb-2">
+                  {activeProfile.headline}
+                </h4>
+                <p className="font-sans text-xs sm:text-sm text-[#0b0b14]/70 leading-relaxed mb-6">
+                  {activeProfile.summary}
+                </p>
+
+                {/* 3-4 Concise Craft Specification Items */}
+                <div className="flex flex-col gap-3 mb-8">
+                  {activeProfile.specs.map((spec, sIdx) => (
+                    <div
+                      key={sIdx}
+                      className="p-3.5 sm:p-4 rounded-2xl bg-white/60 border border-white/90 shadow-2xs backdrop-blur-md flex flex-col gap-0.5"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-[9px] font-bold text-[#2a4bd7] tracking-wider uppercase">
+                          {spec.label}
+                        </span>
+                        <span className="font-mono text-[10px] font-bold text-[#0b0b14]">
+                          {spec.value}
+                        </span>
+                      </div>
+                      <p className="font-sans text-[11px] sm:text-xs text-[#0b0b14]/75 leading-snug">
+                        {spec.detail}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Action Route to Full Spec Details */}
+                <div className="flex items-center gap-3">
+                  <Link
+                    href={`/watch/${selectedWatch.slug}`}
+                    data-cursor="link"
+                    className="group inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#0b0b14] text-white hover:bg-[#1a1a2e] transition-all duration-300 shadow-sm font-mono text-xs font-semibold tracking-wider uppercase"
+                  >
+                    <span>Inspect Archive</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+
+                  <Link
+                    href="/collection"
+                    data-cursor="link"
+                    className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full bg-white/70 hover:bg-white border border-white text-[#0b0b14] font-mono text-xs font-semibold tracking-wider uppercase transition-all shadow-2xs"
+                  >
+                    <span>All 15 Models</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#0b0b14]/50" />
+                  </Link>
+                </div>
+
+              </motion.div>
+            </AnimatePresence>
           </div>
 
         </div>

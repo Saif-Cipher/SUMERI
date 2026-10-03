@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Compass, Menu, X, ArrowUpRight } from "lucide-react";
 import { ScrambleText } from "@/components/ui/scramble-text";
-import { MorphButton } from "@/components/ui/MorphButton";
 
 const NAV_ITEMS = [
   { name: "HOME", href: "/" },
@@ -91,21 +90,21 @@ export function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "py-3 bg-white/45 dark:bg-[#181819]/70 backdrop-blur-xl border-b border-white/60 dark:border-white/10 shadow-sm"
+            ? "py-3 bg-white/45 backdrop-blur-xl border-b border-white/60 shadow-sm"
             : "py-5 sm:py-6 bg-transparent"
         }`}
       >
         <div className="max-w-[1560px] mx-auto px-6 sm:px-10 lg:px-14 flex items-center justify-between">
           {/* SUMERI Wordmark with Scramble Text on Hover */}
           <Link href="/" className="flex items-center gap-2.5 group" data-cursor="link">
-            <span className="flex items-center justify-center h-7 w-7 rounded-full bg-[#0b0b14] dark:bg-white text-white dark:text-[#181819] shadow-sm transition-colors">
+            <span className="flex items-center justify-center h-7 w-7 rounded-full bg-[#0b0b14] text-white shadow-sm transition-colors">
               <Compass className="w-3.5 h-3.5 transition-transform duration-500 group-hover:rotate-45" />
             </span>
             <ScrambleText
               scrambleOnHover={true}
               duration={0.6}
               speed={0.03}
-              className="font-display text-2xl sm:text-3xl tracking-[0.24em] text-[#0b0b14] dark:text-white font-semibold uppercase leading-none transition-colors"
+              className="font-display text-2xl sm:text-3xl tracking-[0.24em] text-[#0b0b14] font-semibold uppercase leading-none"
             >
               SUMERI
             </ScrambleText>
@@ -124,14 +123,14 @@ export function Header() {
                   className={`relative px-4 py-1.5 rounded-full font-mono text-xs tracking-wider uppercase transition-colors z-10 ${
                     isActive
                       ? "text-white font-medium"
-                      : "text-[#0b0b14]/70 hover:text-[#0b0b14] dark:text-white/70 dark:hover:text-white"
+                      : "text-[#0b0b14]/70 hover:text-[#0b0b14]"
                   }`}
                 >
                   {/* Shared Liquid Glass Sliding Active Capsule */}
                   {isActive && (
                     <motion.div
                       layoutId="activeLiquidPill"
-                      className="absolute inset-0 rounded-full bg-[#0b0b14] dark:bg-[#1f1f7d] shadow-[0_4px_16px_rgba(11,11,20,0.22)] dark:shadow-[0_4px_16px_rgba(31,31,125,0.4)] -z-10"
+                      className="absolute inset-0 rounded-full bg-[#0b0b14] shadow-[0_4px_16px_rgba(11,11,20,0.22)] -z-10"
                       transition={{
                         type: "spring",
                         stiffness: 380,
@@ -150,28 +149,24 @@ export function Header() {
             })}
           </nav>
 
-          {/* Right Controls: MorphButton Theme Switcher + Magnetic Contact Pill */}
+          {/* Right Magnetic Contact Pill */}
           <div className="hidden md:flex items-center gap-3">
-            {/* Morphing Theme Button */}
-            <MorphButton />
-
             <Link
               ref={contactBtnRef}
               href="/contact"
               data-cursor="link"
-              className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0b0b14] dark:bg-white text-white dark:text-[#181819] hover:bg-[#1a1a2e] dark:hover:bg-white/90 transition-colors font-mono text-xs font-semibold tracking-widest uppercase shadow-sm"
+              className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0b0b14] text-white hover:bg-[#1a1a2e] transition-colors font-mono text-xs font-semibold tracking-widest uppercase shadow-sm"
             >
               <span>CONTACT</span>
               <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
 
-          {/* Mobile Right Controls: Compact MorphButton + Hamburger Menu */}
+          {/* Mobile Right Controls: Hamburger Menu */}
           <div className="flex items-center gap-2 md:hidden">
-            <MorphButton showLabel={false} />
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="p-2 text-[#0b0b14] dark:text-white hover:opacity-80 transition-colors"
+              className="p-2 text-[#0b0b14] hover:opacity-80 transition-colors"
               aria-label="Open menu"
             >
               <Menu className="w-6 h-6" />
@@ -182,7 +177,7 @@ export function Header() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-[#0b0b14]/95 dark:bg-[#0d1a41]/95 backdrop-blur-2xl flex flex-col justify-between p-8 text-white">
+        <div className="fixed inset-0 z-50 bg-[#0b0b14]/95 backdrop-blur-2xl flex flex-col justify-between p-8 text-white">
           <div className="flex items-center justify-between">
             <span className="font-display text-2xl tracking-[0.24em] font-semibold uppercase">
               SUMERI
@@ -203,7 +198,7 @@ export function Header() {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`transition-colors ${
-                  activeItem === item.name ? "text-[#2a4bd7] dark:text-[#3b82f6]" : "hover:text-[#2a4bd7] dark:hover:text-[#3b82f6]"
+                  activeItem === item.name ? "text-[#2a4bd7]" : "hover:text-[#2a4bd7]"
                 }`}
               >
                 {item.name.charAt(0) + item.name.slice(1).toLowerCase()}
@@ -211,12 +206,7 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="pt-6 border-t border-white/20 flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-xs text-white/70 uppercase tracking-wider">Appearance</span>
-              <MorphButton />
-            </div>
-
+          <div className="pt-6 border-t border-white/20">
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}

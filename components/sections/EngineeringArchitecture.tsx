@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Shield, Sparkles, Clock, Droplets, Layers, ArrowUpRight } from "lucide-react";
+import { Shield, Sparkles, Clock, Droplets } from "lucide-react";
 import { WATCH_CATALOG } from "@/data/watch-data";
 import { ScrambleText } from "@/components/ui/scramble-text";
 
@@ -78,24 +78,24 @@ export function EngineeringArchitecture() {
   return (
     <section
       id="engineering"
-      className="relative z-20 py-28 sm:py-36 px-6 sm:px-10 lg:px-14 border-t border-[#0b0b14]/5 dark:border-white/5 transition-colors"
+      className="relative z-20 py-28 sm:py-36 px-6 sm:px-10 lg:px-14 border-t border-[#0b0b14]/5 transition-colors"
     >
       <div className="max-w-[1560px] mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-20">
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <span className="h-px w-8 bg-[#0b0b14]/30 dark:bg-white/30" />
+              <span className="h-px w-8 bg-[#0b0b14]/30" />
               <ScrambleText
                 duration={0.8}
                 speed={0.03}
                 scrambleOnHover={true}
-                className="font-mono text-xs font-semibold tracking-[0.25em] text-[#0b0b14]/70 dark:text-white/70 uppercase cursor-default"
+                className="font-mono text-xs font-semibold tracking-[0.25em] text-[#0b0b14]/70 uppercase cursor-default"
               >
                 ENGINEERING ARCHITECTURE · 02
               </ScrambleText>
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#0b0b14] dark:text-white leading-[0.95] transition-colors">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#0b0b14] leading-[0.95] transition-colors">
               Tensile{" "}
               <span className="font-serif italic font-medium accent-gradient-text">
                 Monolith.
@@ -103,7 +103,7 @@ export function EngineeringArchitecture() {
             </h2>
           </div>
 
-          <p className="font-sans text-sm text-[#0b0b14]/70 dark:text-white/70 max-w-sm leading-relaxed transition-colors">
+          <p className="font-sans text-sm text-[#0b0b14]/70 max-w-sm leading-relaxed transition-colors">
             Every component is audited for tensile resilience and hydrostatic endurance.
             Explore the structural engineering of the Citizen Super Titanium™ collection.
           </p>
@@ -125,19 +125,19 @@ export function EngineeringArchitecture() {
                   onClick={() => setActiveStep(idx)}
                   className={`text-left p-6 sm:p-7 rounded-[24px] transition-all duration-300 border flex flex-col gap-2 cursor-pointer ${
                     isSelected
-                      ? "bg-white/90 dark:bg-[#0d1a41]/90 border-[#2a4bd7] dark:border-[#3b82f6] shadow-[0_12px_30px_rgba(42,75,215,0.12)] dark:shadow-[0_12px_30px_rgba(0,0,0,0.5)] ring-1 ring-[#2a4bd7]/20 dark:ring-[#3b82f6]/30"
-                      : "bg-white/45 dark:bg-white/[0.04] hover:bg-white/70 dark:hover:bg-white/[0.08] border-white/80 dark:border-white/10"
+                      ? "bg-white/90 border-[#2a4bd7] shadow-[0_12px_30px_rgba(42,75,215,0.12)] ring-1 ring-[#2a4bd7]/20"
+                      : "bg-white/45 hover:bg-white/70 border-white/80"
                   }`}
                   data-cursor="link"
                 >
                   <div className="flex items-center justify-between w-full">
-                    <span className="font-mono text-xs font-bold tracking-widest text-[#2a4bd7] dark:text-[#3b82f6]">
+                    <span className="font-mono text-xs font-bold tracking-widest text-[#2a4bd7]">
                       {s.step} // {s.subtitle}
                     </span>
-                    <Icon className="w-4 h-4 text-[#0b0b14]/50 dark:text-white/50" />
+                    <Icon className="w-4 h-4 text-[#0b0b14]/50" />
                   </div>
 
-                  <span className="font-display text-xl sm:text-2xl text-[#0b0b14] dark:text-white font-medium leading-tight transition-colors">
+                  <span className="font-display text-xl sm:text-2xl text-[#0b0b14] font-medium leading-tight transition-colors">
                     {s.title}
                   </span>
 
@@ -147,7 +147,7 @@ export function EngineeringArchitecture() {
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="font-sans text-xs sm:text-sm text-[#0b0b14]/75 dark:text-white/75 mt-2 leading-relaxed"
+                      className="font-sans text-xs sm:text-sm text-[#0b0b14]/75 mt-2 leading-relaxed"
                     >
                       {s.description}
                     </motion.p>
@@ -162,14 +162,14 @@ export function EngineeringArchitecture() {
             ref={stageRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="lg:col-span-7 relative flex items-center justify-center min-h-[460px] sm:min-h-[560px] rounded-[32px] p-8 sm:p-12 overflow-hidden border border-white/80 dark:border-white/10 bg-white/40 dark:bg-[#0d1a41]/60 backdrop-blur-2xl transition-colors select-none"
+            className="lg:col-span-7 relative flex items-center justify-center min-h-[460px] sm:min-h-[560px] rounded-[32px] p-8 sm:p-12 overflow-hidden border border-white/80 bg-white/40 backdrop-blur-2xl transition-colors select-none"
           >
             {/* Top Reference Badge */}
             <div className="absolute top-6 left-6 z-20 flex items-center gap-2">
-              <span className="font-mono text-[10px] font-bold tracking-wider px-3 py-1 rounded-full bg-white/80 dark:bg-white/10 border border-white dark:border-white/10 text-[#0b0b14] dark:text-white backdrop-blur-md shadow-sm">
+              <span className="font-mono text-[10px] font-bold tracking-wider px-3 py-1 rounded-full bg-white/80 border border-white text-[#0b0b14] backdrop-blur-md shadow-sm">
                 CITIZEN ZENSHIN 60 · NK5020-58P
               </span>
-              <span className="font-mono text-[9px] font-bold tracking-widest px-2.5 py-1 rounded-full uppercase bg-[#c25e2e]/20 text-[#c25e2e] border border-[#c25e2e]/30 hidden sm:inline-block">
+              <span className="font-mono text-[9px] font-bold tracking-widest px-2.5 py-1 rounded-full uppercase bg-[#c25e2e]/15 text-[#c25e2e] border border-[#c25e2e]/30 hidden sm:inline-block">
                 SUPER TITANIUM™
               </span>
             </div>
@@ -190,7 +190,7 @@ export function EngineeringArchitecture() {
                 priority
                 unoptimized
                 sizes="500px"
-                className="object-contain drop-shadow-[0_25px_45px_rgba(11,11,20,0.22)] dark:drop-shadow-[0_30px_55px_rgba(0,0,0,0.7)] transition-transform duration-700 select-none"
+                className="object-contain drop-shadow-[0_25px_45px_rgba(11,11,20,0.22)] transition-transform duration-700 select-none"
                 style={{
                   transform: ENGINEERING_STEPS[activeStep].transformFocus,
                 }}
@@ -198,11 +198,11 @@ export function EngineeringArchitecture() {
             </motion.div>
 
             {/* Floating Technical Stat Overlay */}
-            <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 bg-[#0b0b14] dark:bg-[#181819] text-white p-5 rounded-2xl shadow-xl flex flex-col max-w-[220px] border border-white/10 backdrop-blur-xl transition-colors">
+            <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 bg-[#0b0b14] text-white p-5 rounded-2xl shadow-xl flex flex-col max-w-[220px] border border-white/10 backdrop-blur-xl transition-colors">
               <span className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white leading-none">
                 {ENGINEERING_STEPS[activeStep].stat}
               </span>
-              <span className="font-mono text-[9px] font-semibold tracking-widest text-[#2a4bd7] dark:text-[#3b82f6] uppercase mt-1">
+              <span className="font-mono text-[9px] font-semibold tracking-widest text-[#2a4bd7] uppercase mt-1">
                 {ENGINEERING_STEPS[activeStep].statLabel}
               </span>
             </div>

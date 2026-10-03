@@ -2,10 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { WATCH_CATALOG, WatchRecord, CraftDetailItem, getWatchCraftDetails } from "@/data/watch-data";
+import { motion } from "framer-motion";
+import { WATCH_CATALOG, WatchRecord, getWatchCraftDetails } from "@/data/watch-data";
 import { ScrambleText } from "@/components/ui/scramble-text";
-import { Layers, Shield, Sparkles, Clock, Droplets, Compass, CheckCircle2, ChevronRight } from "lucide-react";
 
 // Featured watches available for the Craft Cascade showcase
 const CRAFT_FEATURED_WATCHES = [
@@ -53,7 +52,7 @@ export function CraftSection() {
   return (
     <section
       id="craft"
-      className="relative z-20 py-28 sm:py-36 px-6 sm:px-10 lg:px-14 border-t border-[#0b0b14]/5 dark:border-white/5 transition-colors overflow-hidden"
+      className="relative z-20 py-28 sm:py-36 px-6 sm:px-10 lg:px-14 border-t border-[#0b0b14]/5 transition-colors overflow-hidden"
     >
       <div className="max-w-[1560px] mx-auto">
         
@@ -61,17 +60,17 @@ export function CraftSection() {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 sm:mb-20">
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <span className="h-px w-8 bg-[#0b0b14]/30 dark:bg-white/30" />
+              <span className="h-px w-8 bg-[#0b0b14]/30" />
               <ScrambleText
                 duration={0.8}
                 speed={0.03}
                 scrambleOnHover={true}
-                className="font-mono text-xs font-semibold tracking-[0.25em] text-[#0b0b14]/70 dark:text-white/70 uppercase cursor-default"
+                className="font-mono text-xs font-semibold tracking-[0.25em] text-[#0b0b14]/70 uppercase cursor-default"
               >
                 WATCH CRAFT & HOROLOGY · 03
               </ScrambleText>
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#0b0b14] dark:text-white leading-[0.95] transition-colors">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#0b0b14] leading-[0.95] transition-colors">
               Artisanal{" "}
               <span className="font-serif italic font-medium accent-gradient-text">
                 Metallurgy.
@@ -81,7 +80,7 @@ export function CraftSection() {
 
           {/* Model Switcher Pill Bar */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-[10px] font-bold text-[#0b0b14]/50 dark:text-white/50 uppercase mr-1 hidden sm:inline-block">
+            <span className="font-mono text-[10px] font-bold text-[#0b0b14]/50 uppercase mr-1 hidden sm:inline-block">
               SELECT CHASSIS:
             </span>
             {CRAFT_FEATURED_WATCHES.map((w) => (
@@ -95,8 +94,8 @@ export function CraftSection() {
                 data-cursor="link"
                 className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold tracking-wider uppercase transition-all ${
                   selectedWatch.id === w.id
-                    ? "bg-[#0b0b14] dark:bg-[#1f1f7d] text-white shadow-sm ring-1 ring-white/20"
-                    : "bg-white/50 dark:bg-white/[0.06] hover:bg-white dark:hover:bg-white/[0.12] text-[#0b0b14]/70 dark:text-white/70 border border-white/80 dark:border-white/10"
+                    ? "bg-[#0b0b14] text-white shadow-sm ring-1 ring-white/20"
+                    : "bg-white/55 hover:bg-white text-[#0b0b14]/75 border border-white/80"
                 }`}
               >
                 {w.model}
@@ -111,44 +110,44 @@ export function CraftSection() {
           {/* LEFT: Contextual Horological Narrative */}
           <div className="lg:col-span-4 flex flex-col justify-center">
             <div className="flex items-center gap-2 mb-2">
-              <span className="font-mono text-xs font-bold text-[#0b0b14]/60 dark:text-white/60 uppercase">
+              <span className="font-mono text-xs font-bold text-[#0b0b14]/60 uppercase">
                 {selectedWatch.brand}
               </span>
-              <span className="h-1 w-1 rounded-full bg-[#0b0b14]/30 dark:bg-white/30" />
-              <span className="font-mono text-xs font-bold text-[#2a4bd7] dark:text-[#3b82f6] uppercase">
+              <span className="h-1 w-1 rounded-full bg-[#0b0b14]/30" />
+              <span className="font-mono text-xs font-bold text-[#2a4bd7] uppercase">
                 {selectedWatch.category}
               </span>
             </div>
 
-            <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#0b0b14] dark:text-white tracking-tight mb-3">
+            <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#0b0b14] tracking-tight mb-3">
               {selectedWatch.name}
             </h3>
 
-            <p className="font-sans text-xs sm:text-sm text-[#0b0b14]/75 dark:text-white/75 leading-relaxed mb-6">
+            <p className="font-sans text-xs sm:text-sm text-[#0b0b14]/75 leading-relaxed mb-6">
               {selectedWatch.description}
             </p>
 
             {/* Active Highlight Detail Callout Box */}
-            <div className="p-5 rounded-2xl bg-white/60 dark:bg-[#0d1a41]/80 border border-white/80 dark:border-white/10 shadow-sm backdrop-blur-md">
+            <div className="p-5 rounded-2xl bg-white/65 border border-white/90 shadow-sm backdrop-blur-md">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[10px] font-bold text-[#2a4bd7] dark:text-[#3b82f6] tracking-widest uppercase">
+                <span className="font-mono text-[10px] font-bold text-[#2a4bd7] tracking-widest uppercase">
                   {activeDetail.num} // {activeDetail.category}
                 </span>
-                <span className="font-mono text-[10px] text-[#0b0b14]/50 dark:text-white/50">
+                <span className="font-mono text-[10px] text-[#0b0b14]/50">
                   ACTIVE FOCUS
                 </span>
               </div>
-              <h4 className="font-display text-lg font-bold text-[#0b0b14] dark:text-white mb-1">
+              <h4 className="font-display text-lg font-bold text-[#0b0b14] mb-1">
                 {activeDetail.title}
               </h4>
-              <p className="font-sans text-xs text-[#0b0b14]/75 dark:text-white/75 leading-snug">
+              <p className="font-sans text-xs text-[#0b0b14]/75 leading-snug">
                 {activeDetail.description}
               </p>
             </div>
 
             {/* Mobile Touch Guidance Tip */}
             <div className="mt-4 lg:hidden text-center">
-              <span className="font-mono text-[10px] text-[#0b0b14]/60 dark:text-white/60 uppercase tracking-widest">
+              <span className="font-mono text-[10px] text-[#0b0b14]/60 uppercase tracking-widest">
                 {mobileExpanded ? "TAP ANY CARD TO FOCUS DETAIL" : "TAP STACK TO CASCADE CRAFT CARDS"}
               </span>
             </div>
@@ -194,24 +193,24 @@ export function CraftSection() {
                       scale: 1.08,
                       transition: { duration: 0.2 },
                     }}
-                    className={`absolute w-[180px] sm:w-[220px] h-[280px] sm:h-[340px] rounded-[24px] p-4 sm:p-5 flex flex-col justify-between transition-colors shadow-[0_15px_35px_rgba(11,11,20,0.12)] dark:shadow-[0_20px_45px_rgba(0,0,0,0.6)] border backdrop-blur-2xl ${
+                    className={`absolute w-[180px] sm:w-[220px] h-[280px] sm:h-[340px] rounded-[24px] p-4 sm:p-5 flex flex-col justify-between transition-colors shadow-[0_15px_35px_rgba(11,11,20,0.12)] border backdrop-blur-2xl ${
                       isActive
-                        ? "bg-white/95 dark:bg-[#181819]/95 border-[#2a4bd7] dark:border-[#3b82f6] ring-2 ring-[#2a4bd7]/30 dark:ring-[#3b82f6]/40"
-                        : "bg-white/75 dark:bg-[#0d1a41]/85 border-white/90 dark:border-white/15"
+                        ? "bg-white/95 border-[#2a4bd7] ring-2 ring-[#2a4bd7]/30"
+                        : "bg-white/75 hover:bg-white/85 border-white/90"
                     }`}
                   >
                     {/* Card Top: Number & Category Badge */}
                     <div className="flex items-center justify-between w-full">
-                      <span className="font-mono text-[10px] font-bold text-[#2a4bd7] dark:text-[#3b82f6] tracking-wider">
+                      <span className="font-mono text-[10px] font-bold text-[#2a4bd7] tracking-wider">
                         {detail.num}
                       </span>
-                      <span className="font-mono text-[9px] font-bold tracking-widest px-2 py-0.5 rounded-full uppercase bg-white/80 dark:bg-white/10 text-[#0b0b14] dark:text-white border border-white/60 dark:border-white/10">
+                      <span className="font-mono text-[9px] font-bold tracking-widest px-2 py-0.5 rounded-full uppercase bg-white/80 text-[#0b0b14] border border-white/60">
                         {detail.category}
                       </span>
                     </div>
 
                     {/* Card Center: Focused Crop of Real Watch Asset */}
-                    <div className="relative w-full h-[140px] sm:h-[180px] overflow-hidden rounded-xl bg-white/40 dark:bg-black/20 my-auto flex items-center justify-center border border-white/50 dark:border-white/5">
+                    <div className="relative w-full h-[140px] sm:h-[180px] overflow-hidden rounded-xl bg-white/40 my-auto flex items-center justify-center border border-white/50">
                       <div
                         className="relative w-full h-full flex items-center justify-center transition-transform duration-500 will-change-transform pointer-events-none"
                         style={{
@@ -231,11 +230,11 @@ export function CraftSection() {
                     </div>
 
                     {/* Card Bottom: Concise Title & 1-line description */}
-                    <div className="w-full pt-2 border-t border-[#0b0b14]/5 dark:border-white/10">
-                      <h5 className="font-display text-sm sm:text-base font-bold text-[#0b0b14] dark:text-white leading-tight truncate">
+                    <div className="w-full pt-2 border-t border-[#0b0b14]/5">
+                      <h5 className="font-display text-sm sm:text-base font-bold text-[#0b0b14] leading-tight truncate">
                         {detail.title}
                       </h5>
-                      <p className="font-sans text-[10px] sm:text-xs text-[#0b0b14]/70 dark:text-white/70 leading-snug line-clamp-2 mt-0.5">
+                      <p className="font-sans text-[10px] sm:text-xs text-[#0b0b14]/70 leading-snug line-clamp-2 mt-0.5">
                         {detail.description}
                       </p>
                     </div>
@@ -245,7 +244,7 @@ export function CraftSection() {
             </div>
 
             {/* Desktop Interaction Prompt */}
-            <div className="mt-8 hidden sm:flex items-center gap-2 font-mono text-[10px] tracking-widest text-[#0b0b14]/50 dark:text-white/50 uppercase">
+            <div className="mt-8 hidden sm:flex items-center gap-2 font-mono text-[10px] tracking-widest text-[#0b0b14]/50 uppercase">
               <span>HOVER TO CASCADE</span>
               <span>·</span>
               <span>CLICK CARD TO FOCUS DETAIL</span>
